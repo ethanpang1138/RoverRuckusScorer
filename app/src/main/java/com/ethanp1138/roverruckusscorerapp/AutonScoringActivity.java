@@ -2,17 +2,12 @@ package com.ethanp1138.roverruckusscorerapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
-public class StartMenuActivity extends AppCompatActivity {
+public class AutonScoringActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_menu);
-    }
-
-    public void autonScoringClick(View view) {
-
+        setContentView(R.layout.activity_auton_scoring);
     }
 }
