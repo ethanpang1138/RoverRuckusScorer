@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|top"
-        android:textSize="40sp"
+        android:layout_marginBottom="10sp"
+        android:textSize="60sp"
         android:textStyle="bold"
         android:text="Auton"/>
 
@@ -20,7 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="15sp"
+        android:layout_marginBottom="30sp"
+        android:textSize="20sp"
         android:text="Points: "/>
 
 </LinearLayout>
