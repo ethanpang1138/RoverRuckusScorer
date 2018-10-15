@@ -70,20 +70,9 @@ public class AutonScoringActivity extends AppCompatActivity {
                 //get the linearLayout, which is the widget itself
                 ViewGroup linearLayout = (ViewGroup) topLayout.getChildAt(0);
 
-                int children = topLayout.getChildCount();
-                int childcount = linearLayout.getChildCount();
-                String accessName = linearLayout.getAccessibilityClassName().toString();
-
                 //get the text which specifies the achievement with id
                 //String achievementText = ((TextView)linearLayout.findViewById(R.id.scoring_text)).getText().toString();
-
-                /*
-                AlertDialog.Builder builder = new AlertDialog.Builder(AutonScoringActivity.this);
-                builder.setMessage("layout: " + accessName + "\n text: " + achievementText + "\n topLayout child count: " + children +
-                                   "\n linearLayout child count: " + childcount);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-*/
+                
                 //get text view which displays score
                 TextView scoreText = linearLayout.findViewById(R.id.points_text);
                 //add points based on the type of scoring opportunity(landing earns some points, while parking earns a different amount)
