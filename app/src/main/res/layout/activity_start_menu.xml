@@ -22,7 +22,7 @@
         android:layout_marginTop="60sp"
         android:padding="30sp"
         android:textSize="20sp"
-        android:onClick="autonScoringClick"
+        android:onClick="onAutonScoringClick"
         android:text="Auton Scoring" />
 
 </LinearLayout>

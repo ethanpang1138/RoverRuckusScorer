@@ -13,7 +13,7 @@ public class StartMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_menu);
     }
 
-    public void autonScoringClick(View view) {
+    public void onAutonScoringClick(View view) {
         Intent intent = new Intent(this, AutonScoringActivity.class);
         startActivity(intent);
     }
