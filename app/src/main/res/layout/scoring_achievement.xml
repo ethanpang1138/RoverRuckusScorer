@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scoring_widget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginBottom="50sp">
+
+    <TextView
+        android:id="@+id/scoring_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20sp"
+        android:textSize="30sp"
+        android:text="Landing" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="100sp">
+
+        <CheckBox
+            android:id="@+id/robot1_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_alignParentLeft="true"
+            android:textSize="20sp"
+            android:text="Robot 1" />
+
+        <CheckBox
+            android:id="@+id/robot2_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20sp"
+            android:layout_marginRight="20sp"
+            android:layout_alignParentRight="true"
+            android:textSize="20sp"
+            android:text="Robot 2" />
+
+    </RelativeLayout>
+
+</LinearLayout>
