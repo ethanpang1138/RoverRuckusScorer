@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
             android:layout_marginBottom="10sp"
-            android:textSize="60sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:text="Auton"/>
 
@@ -32,11 +32,28 @@
             android:textSize="20sp"
             android:text="Points: "/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Time: "/>
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/start_timer_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20sp"
+                android:textSize="10sp"
+                android:onClick="onStartTimerClick"
+                android:text="Start"/>
+
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Time: 30 seconds"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 

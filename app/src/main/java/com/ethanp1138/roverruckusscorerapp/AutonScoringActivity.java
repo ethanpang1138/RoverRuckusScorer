@@ -1,5 +1,6 @@
 package com.ethanp1138.roverruckusscorerapp;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import org.w3c.dom.Text;
 
 public class AutonScoringActivity extends AppCompatActivity {
 
-    private static final String[] SCORING_ACHIEVEMENTS = {"Landed", "Depot Claimed", "Parked in Crater", "Gold Mineral Sampled"};
+    private static final String[] SCORING_ACHIEVEMENTS = {"Landed (30pts)", "Depot Claimed (15pts)", "Parked in Crater (10pts)", "Gold Mineral Sampled (25pts)"};
     private static final int[] ACHIEVEMENT_POINTS = {30, 15, 10, 25};
     private static int points = 0;
 
@@ -30,13 +31,30 @@ public class AutonScoringActivity extends AppCompatActivity {
         //get layout of the scoring activity
         LinearLayout layout = findViewById(R.id.widget_scoring_list);
 
-
         //create a label and two checkboxes for each scoring achievement
         for(String achievement : SCORING_ACHIEVEMENTS){
             addScoringAchievement(achievement, layout);
         }
     }
 
+    public void onStartTimerClick(View view) {
+
+        //the text to display the time
+        final TextView timer = findViewById(R.id.timer);
+
+        //timer that starts with 30 seconds
+        new CountDownTimer(30000, 1000){
+            //every 1 second, update the displayed time
+            public void onTick(long millis){
+                timer.setText("Time: " + millis / 1000 + " seconds");
+            }
+            //notify when time is up
+            public void onFinish(){
+                Toast.makeText(getApplicationContext(), "Time is up!", Toast.LENGTH_SHORT).show();
+                timer.setText("Time: 0 seconds");
+            }
+        }.start();
+    }
 
     private void addScoringAchievement(String achievement, LinearLayout layout){
 
@@ -97,5 +115,4 @@ public class AutonScoringActivity extends AppCompatActivity {
             }
         });
     }
-
 }
