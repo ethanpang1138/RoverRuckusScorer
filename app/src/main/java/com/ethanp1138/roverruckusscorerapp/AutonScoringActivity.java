@@ -62,19 +62,21 @@ public class AutonScoringActivity extends AppCompatActivity {
 
     //helper method to set onClickListeners and update points accordingly
     private void setOnClickListeners(CheckBox cb, final String achievementText){
+
+
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton button, boolean isChecked){
                 //get the top level layout that this view is in
                 ViewGroup topLayout = (ViewGroup)button.getRootView();
-                //get the linearLayout, which is the widget itself
-                ViewGroup linearLayout = (ViewGroup) topLayout.getChildAt(0);
+                //get the linearLayout, which is the title widget
+                ViewGroup titleLayout = (ViewGroup) topLayout.getChildAt(0);
 
                 //get the text which specifies the achievement with id
                 //String achievementText = ((TextView)linearLayout.findViewById(R.id.scoring_text)).getText().toString();
-                
+
                 //get text view which displays score
-                TextView scoreText = linearLayout.findViewById(R.id.points_text);
+                TextView scoreText = titleLayout.findViewById(R.id.points_text);
                 //add points based on the type of scoring opportunity(landing earns some points, while parking earns a different amount)
                 int index = 0;
                 //find the scoring achievement
