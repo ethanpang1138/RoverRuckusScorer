@@ -65,7 +65,7 @@ public class AutonScoringActivity extends AppCompatActivity {
 
     public void updateTimer(int currentTime){
         final TextView timerText = findViewById(R.id.timer);
-        timerText.setText("Time: " + currentTime + " seconds");
+        timerText.setText("Time: " + currentTime + "s");
     }
 
     public void timeUp(){

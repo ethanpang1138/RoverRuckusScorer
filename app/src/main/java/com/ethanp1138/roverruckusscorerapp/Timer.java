@@ -30,6 +30,7 @@ public class Timer {
     }
 
     public void restartTimer(){
+        stopTimer();
         initTimer(maxTime);
         startFromBeginning = true;
     }
@@ -43,6 +44,7 @@ public class Timer {
 
             @Override
             public void onFinish() {
+                activity.updateTimer(0);
                 activity.timeUp();
             }
         };
@@ -50,5 +52,4 @@ public class Timer {
     public void stopTimer(){
         timer.cancel();
     }
-    public int getTime(){return time;}
 }
