@@ -8,6 +8,7 @@ import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -19,9 +20,12 @@ import org.w3c.dom.Text;
 
 public class AutonScoringActivity extends AppCompatActivity {
 
-    private static final String[] SCORING_ACHIEVEMENTS = {"Landed (30pts)", "Depot Claimed (15pts)", "Parked in Crater (10pts)", "Gold Mineral Sampled (25pts)"};
+    private static final String[] SCORING_ACHIEVEMENTS = {"Landed (30pts)", "Gold Mineral Sampled (25pts)", "Depot Claimed (15pts)", "Parked in Crater (10pts)"};
     private static final int[] ACHIEVEMENT_POINTS = {30, 15, 10, 25};
     private static int points = 0;
+    private boolean timerRunning = false;
+    private Timer timer = new Timer(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +41,35 @@ public class AutonScoringActivity extends AppCompatActivity {
         }
     }
 
-    public void onStartTimerClick(View view) {
-
-        //the text to display the time
-        final TextView timer = findViewById(R.id.timer);
-
-        //timer that starts with 30 seconds
-        new CountDownTimer(30000, 1000){
-            //every 1 second, update the displayed time
-            public void onTick(long millis){
-                timer.setText("Time: " + millis / 1000 + " seconds");
+    public void onStartTimerClick(View view){
+        Button startStopButton = (Button)view;
+        if(!startStopButton.getText().toString().contains(" 0 ")){
+            timerRunning = !timerRunning;
+            if(timerRunning){
+                timer.startTimer();
+                startStopButton.setText("Stop");
+            } else {
+                timer.stopTimer();
+                startStopButton.setText("Resume");
             }
-            //notify when time is up
-            public void onFinish(){
-                Toast.makeText(getApplicationContext(), "Time is up!", Toast.LENGTH_SHORT).show();
-                timer.setText("Time: 0 seconds");
-            }
-        }.start();
+        }
+    }
+
+    public void onRestartTimerClick(View view){
+        timer.restartTimer();
+        updateTimer(30);
+        Button startStopButton = findViewById(R.id.start_timer_button);
+        startStopButton.setText("Start");
+        timerRunning = false;
+    }
+
+    public void updateTimer(int currentTime){
+        final TextView timerText = findViewById(R.id.timer);
+        timerText.setText("Time: " + currentTime + " seconds");
+    }
+
+    public void timeUp(){
+        Toast.makeText(getApplicationContext(),"time is up", Toast.LENGTH_SHORT).show();
     }
 
     private void addScoringAchievement(String achievement, LinearLayout layout){
