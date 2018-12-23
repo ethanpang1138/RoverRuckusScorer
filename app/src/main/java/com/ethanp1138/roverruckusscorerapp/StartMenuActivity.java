@@ -12,9 +12,14 @@ public class StartMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_menu);
     }
-
+    // "Auton Scoring" button goes to AutonScoringActivity
     public void onAutonScoringClick(View view) {
         Intent intent = new Intent(this, AutonScoringActivity.class);
+        startActivity(intent);
+    }
+    // "TeleOp Scoring" button goes to TeleOpScoringActivity
+    public void onTeleOpScoringClick(View view) {
+        Intent intent = new Intent(this, TeleOpScoringActivity.class);
         startActivity(intent);
     }
 }
