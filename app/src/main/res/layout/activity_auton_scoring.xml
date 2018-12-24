@@ -109,6 +109,13 @@
                     android:textSize="15sp"
                     android:onClick="onHomeScreenClick"
                     android:text="Home"/>
+                <!--Reset Score-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:onClick="onResetScoreClick"
+                    android:text="Reset"/>
             </LinearLayout>
 
         </LinearLayout>

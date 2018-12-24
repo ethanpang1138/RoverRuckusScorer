@@ -103,8 +103,6 @@ public class AutonScoringActivity extends AppCompatActivity implements ScoringAc
                 // get the text which specifies the achievement with id
                 // String achievementText = ((TextView)linearLayout.findViewById(R.id.scoring_text)).getText().toString();
 
-                // get text view which displays score
-                TextView scoreText = titleLayout.findViewById(R.id.auton_points_text);
                 //add points based on the type of scoring opportunity(landing earns some points, while parking earns a different amount)
                 int index = 0;
                 // find the scoring achievement
@@ -120,7 +118,7 @@ public class AutonScoringActivity extends AppCompatActivity implements ScoringAc
                 } else {
                     points -= value;
                 }
-                scoreText.setText("Score: " + points);
+                updateScore();
 
             }
         });
@@ -134,5 +132,16 @@ public class AutonScoringActivity extends AppCompatActivity implements ScoringAc
     public void onHomeScreenClick(View view){
         Intent toHome = new Intent(this, StartMenuActivity.class);
         startActivity(toHome);
+    }
+
+    public void onResetScoreClick(View view) {
+        points = 0;
+
+        updateScore();
+    }
+
+    private void updateScore(){
+        TextView scoreText = findViewById(R.id.auton_points_text);
+        scoreText.setText("Score: " + points);
     }
 }
