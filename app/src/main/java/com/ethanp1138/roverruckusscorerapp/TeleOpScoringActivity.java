@@ -6,12 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,17 +26,15 @@ import java.util.Arrays;
 public class TeleOpScoringActivity extends AppCompatActivity implements ScoringActivity {
 
     private static final String[] TELEOP_SCORING_ACHIEVEMENTS = {"Gold minerals scored", "Silver minerals scored",
-                                                                "Minerals scored in depot", "Latched to Lander",
-                                                                "Completely Parked", "Partially Parked", "None"};
-    private static final int[] TELEOP_SCORING_POINTS = {5, 5, 2, 50, 25, 15, 0};
+                                                                    "Minerals scored in depot", };
+    private static final String[] ENDGAME_SCORING_ACHIEVEMENTS = {"Latched to Lander (50pts)", "Completely Parked (25pts)",
+                                                                    "Partially Parked (15pts)", "None"};
+    private static final int[] TELEOP_SCORING_POINTS = {5, 5, 2};
+    private static final int[] ENDGAME_SCORING_POINTS = {50,25,15,0};
     private static int[] prevMinerals = {0, 0, 0};
     private static boolean[] prevEndGameChecked1 = {false, false, false, false};
     private static boolean[] prevEndGameChecked2 = {false, false, false, false};
-
-    //    private ArrayList<CheckBox> cbs1 = null;
-//    private ArrayList<CheckBox> cbs2 = null;
-
-    private ArrayList<RadioButton> rbs = null;
+    private ArrayList<RadioGroup> rgs = new ArrayList<>();
     private  ArrayList<EditText> ets = null;
     private static  int points = 0;
     private boolean timerRunning = false;
@@ -56,26 +57,10 @@ public class TeleOpScoringActivity extends AppCompatActivity implements ScoringA
         for(EditText et : ets){
             setMineralOnClickListeners(et);
         }
-
-
-/*
-        CheckBox cb1 = findViewById(R.id.endgame_1);
-        CheckBox cb2 = findViewById(R.id.endgame_2);
-        CheckBox cb3 = findViewById(R.id.endgame_3);
-        CheckBox cb4 = findViewById(R.id.endgame_4);
-        CheckBox cb5 = findViewById(R.id.endgame_5);
-        CheckBox cb6 = findViewById(R.id.endgame_6);
-        CheckBox[] boxes1 = {cb1, cb2, cb3};
-        cbs1 = new ArrayList<CheckBox>(Arrays.asList(boxes1));
-        for(CheckBox cb : cbs1){
-            setEndGameOnClickListeners(cb);
-        }
-        CheckBox[] boxes2 = {cb4, cb5, cb6};
-        cbs2 = new ArrayList<CheckBox>(Arrays.asList(boxes2));
-        for(CheckBox cb : cbs2){
-            setEndGameOnClickListeners(cb);
-        }
-*/
+        RadioGroup rg1 = findViewById(R.id.endGame_buttons_1);
+        RadioGroup rg2 = findViewById(R.id.endGame_buttons_2);
+        rgs.add(rg1);
+        rgs.add(rg2);
     }
 
     private void setMineralOnClickListeners(final EditText et){
@@ -114,62 +99,61 @@ public class TeleOpScoringActivity extends AppCompatActivity implements ScoringA
         });
     }
 
-    // listener for end game radio buttons
-    public void onEndGameClick(View view) {
+    // listener for Robot 1 end game
+    public void onEndGame1Click(View view) {
+        // find the correct points for the radio button and add to points
         int index = 0;
         String scoreType = ((RadioButton) view).getText().toString();
-        for(int i = 0; i < TELEOP_SCORING_ACHIEVEMENTS.length; i++){
-            if(TELEOP_SCORING_ACHIEVEMENTS[i].equals(scoreType)){
+        for(int i = 0; i < ENDGAME_SCORING_ACHIEVEMENTS.length; i++){
+            if(ENDGAME_SCORING_ACHIEVEMENTS[i].equals(scoreType)){
                 index = i;
             }
         }
-        int value = TELEOP_SCORING_POINTS[index];
+        int value = ENDGAME_SCORING_POINTS[index];
         points += value;
+
+        // find the points from the previous radio button and subtract it from points
         for(int i = 0; i < prevEndGameChecked1.length; i++){
             if(prevEndGameChecked1[i] == true){
-                int prevPoints = TELEOP_SCORING_POINTS[i + 3];
+                int prevPoints = ENDGAME_SCORING_POINTS[i];
                 points -= prevPoints;
-            }
-        }
-        prevEndGameChecked1[index - 3] = true;
-        for(int i = 0; i < prevEndGameChecked1.length; i++){
-            if(i != (index - 3)){
                 prevEndGameChecked1[i] = false;
             }
         }
+        // keep track that this button has been checked for next time
+        prevEndGameChecked1[index] = true;
+        updateScore();
     }
-/*
-    private void setEndGameOnClickListeners(final CheckBox cb){
-        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton button, boolean isChecked) {
 
-                for(int i = 0 ; i < cbs1.size(); i++){
-                    if(cbs1.get(i).equals(cb)){
-                        for(int j = 0; j < cbs1.size(); j++){
-                            cbs1.get(j).setChecked(false);
-                        }
-                    } else {
-                        for(int j = 0; j < cbs1.size(); j++){
-                            cbs2.get(j).setChecked(false);
-                        }
-                    }
-                }
-                cb.setChecked(true);
-                String scoreType = button.getText().toString();
-                int index = 0;
-                for(int i = 0; i < TELEOP_SCORING_ACHIEVEMENTS.length; i++){
-                    if(TELEOP_SCORING_ACHIEVEMENTS[i].equals(scoreType)){
-                        index = i;
-                    }
-                }
-                int value = TELEOP_SCORING_POINTS[index];
-                points += isChecked ? value : -value;
-                updateScore();
+    // listener for Robot 2 end game
+    public void onEndGame2Click(View view) {
+        // find the correct points for the radio button and add to points
+        int index = 0;
+        String scoreType = ((RadioButton) view).getText().toString();
+        for(int i = 0; i < ENDGAME_SCORING_ACHIEVEMENTS.length; i++){
+            if(ENDGAME_SCORING_ACHIEVEMENTS[i].equals(scoreType)){
+                index = i;
             }
-        });
+        }
+        int value = ENDGAME_SCORING_POINTS[index];
+        points += value;
+
+        //find the RadioGroup the button is in
+        // get the id of the RadioGroup to determine which points to change
+        // find the points from the previous radio button and subtract it from points
+        for(int i = 0; i < prevEndGameChecked2.length; i++){
+            if(prevEndGameChecked2[i] == true){
+                int prevPoints = ENDGAME_SCORING_POINTS[i];
+                points -= prevPoints;
+                prevEndGameChecked2[i] = false;
+            }
+        }
+        // keep track that this button has been checked for next time
+        prevEndGameChecked2[index] = true;
+        updateScore();
     }
-*/
+
+    // start timer from where it left off
     public void onStartTimerClick(View view){
         Button startStopButton = (Button)view;
         if(!startStopButton.getText().toString().contains(" 0 ")){
@@ -183,6 +167,7 @@ public class TeleOpScoringActivity extends AppCompatActivity implements ScoringA
             }
         }
     }
+    // reset timer to max time
     public void onRestartTimerClick(View view){
         timer.restartTimer();
         updateTimer(120);
@@ -190,14 +175,17 @@ public class TeleOpScoringActivity extends AppCompatActivity implements ScoringA
         startStopButton.setText("Start");
         timerRunning = false;
     }
+    // update what the timer displays
     public void updateTimer(int currentTime){
         final TextView timerText = findViewById(R.id.teleop_timer);
         String formattedTime = formatTime(currentTime);
         timerText.setText("Time: " + formattedTime);
     }
+    // alert user that time is up
     public void timeUp(){
         Toast.makeText(getApplicationContext(),"time is up", Toast.LENGTH_SHORT).show();
     }
+    // convert time to "x m y s" format
     private String formatTime(int time){
         int min = 0;
         int sec = time % 60;
@@ -208,27 +196,26 @@ public class TeleOpScoringActivity extends AppCompatActivity implements ScoringA
         String newTime = "" + min + "m " + sec + "s";
         return newTime;
     }
-
+    // button to go to auton scoring
     public void onAutonScoringClick(View view) {
         Intent toAuton = new Intent(this, AutonScoringActivity.class);
         startActivity(toAuton);
     }
-
+    // button to go to home screen
     public void onHomeScreenClick(View view){
         Intent toHome = new Intent(this, StartMenuActivity.class);
         startActivity(toHome);
     }
-
+    // button to reset score to 0 and unselect everything
     public void onResetScoreClick(View view) {
-//        for(int i = 0; i < cbs1.size(); i++){
-//            cbs1.get(i).setChecked(false);
-//            cbs2.get(i).setChecked(false);
-//        }
-        for(int i = 0; i < prevEndGameChecked1.length; i++){
-
-        }
+        // clear mineral text fields
         for(int i = 0; i < ets.size(); i++){
             ets.get(i).setText("");
+        }
+        // uncheck endgame all buttons
+        for(RadioGroup rg : rgs){
+            RadioButton rb1 = findViewById(rg.getCheckedRadioButtonId());
+            rb1.setChecked(false);
         }
         points = 0;
         updateScore();

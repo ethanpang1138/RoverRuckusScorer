@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:text="Score: "/>
+            android:text="Score: 0"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,9 +104,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
-
             <!--Gold Mineral Scoring-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -120,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="Gold Minerals in Lander:"/>
+                    android:text="Gold Minerals in Lander: (5pts)"/>
                 <EditText
                     android:id="@+id/gold_mineral_text_field"
                     android:text=""
@@ -144,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="Silver Minerals in Lander:"/>
+                    android:text="Silver Minerals in Lander: (5pts)"/>
                 <EditText
                     android:id="@+id/silver_mineral_text_field"
                     android:text=""
@@ -168,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="Minerals in Depot:"/>
+                    android:text="Minerals in Depot: (2pts)"/>
                 <EditText
                     android:id="@+id/depot_text_field"
                     android:text=""
@@ -194,93 +191,74 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10sp"
                 android:textSize="25sp"
+                android:layout_gravity="center"
                 android:text="Robot 1"/>
 
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:id="@+id/endGame_buttons_1"
                 android:orientation="vertical">
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onEndGameClick"
-                    android:text="Latched to Lander"/>
+                    android:onClick="onEndGame1Click"
+                    android:text="Latched to Lander (50pts)"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onEndGameClick"
-                    android:text="Completely Parked"/>
+                    android:onClick="onEndGame1Click"
+                    android:text="Completely Parked (25pts)"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onEndGameClick"
-                    android:text="Partially Parked"/>
+                    android:onClick="onEndGame1Click"
+                    android:text="Partially Parked (15pts)"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onEndGameClick"
+                    android:onClick="onEndGame1Click"
                     android:text="None"/>
 
             </RadioGroup>
-<!--
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10sp"
-                android:orientation="vertical">
-                <CheckBox
-                    android:id="@+id/endgame_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="20sp"
-                    android:text="Latched"/>
-                <CheckBox
-                    android:id="@+id/endgame_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="20sp"
-                    android:text="Completely Parked"/>
-                <CheckBox
-                    android:id="@+id/endgame_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="20sp"
-                    android:text="Partially Parked"/>
-            </LinearLayout>
--->
+
             <!--Robot 2-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10sp"
                 android:textSize="25sp"
+                android:layout_gravity="center"
                 android:text="Robot 2"/>
 
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:id="@+id/endGame_buttons_2"
                 android:orientation="vertical">
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onEndGameClick"
-                    android:text="Latched to Lander"/>
+                    android:onClick="onEndGame2Click"
+                    android:text="Latched to Lander (50pts)"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onEndGameClick"
-                    android:text="Completely Parked"/>
+                    android:onClick="onEndGame2Click"
+                    android:text="Completely Parked (25pts)"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onEndGameClick"
-                    android:text="Partially Parked"/>
+                    android:onClick="onEndGame2Click"
+                    android:text="Partially Parked (15pts)"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onEndGameClick"
+                    android:onClick="onEndGame2Click"
                     android:text="None"/>
 
             </RadioGroup>

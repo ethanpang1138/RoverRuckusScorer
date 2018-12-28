@@ -9,13 +9,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class AutonScoringActivity extends AppCompatActivity implements ScoringActivity {
 
     private static final String[] SCORING_ACHIEVEMENTS = {"Landed (30pts)", "Gold Mineral Sampled (25pts)", "Depot Claimed (15pts)", "Parked in Crater (10pts)"};
-    private static final int[] ACHIEVEMENT_POINTS = {30, 15, 10, 25};
+    private static final int[] ACHIEVEMENT_POINTS = {30, 25, 15, 10};
     private static int points = 0;
     private boolean timerRunning = false;
     private Timer timer = new Timer(this);
@@ -34,7 +37,7 @@ public class AutonScoringActivity extends AppCompatActivity implements ScoringAc
             addScoringAchievement(achievement, layout);
         }
     }
-
+    // run timer
     public void onStartTimerClick(View view){
         Button startStopButton = (Button)view;
         if(!startStopButton.getText().toString().contains(" 0 ")){
@@ -48,7 +51,7 @@ public class AutonScoringActivity extends AppCompatActivity implements ScoringAc
             }
         }
     }
-
+    // reset timer to max time
     public void onRestartTimerClick(View view){
         timer.restartTimer();
         updateTimer(30);
@@ -56,12 +59,12 @@ public class AutonScoringActivity extends AppCompatActivity implements ScoringAc
         startStopButton.setText("Start");
         timerRunning = false;
     }
-
+    // update the displayed time
     public void updateTimer(int currentTime){
         final TextView timerText = findViewById(R.id.auton_timer);
         timerText.setText("Time: " + currentTime + "s");
     }
-
+    // alert user that time is up
     public void timeUp(){
         Toast.makeText(getApplicationContext(),"time is up", Toast.LENGTH_SHORT).show();
     }
@@ -90,7 +93,6 @@ public class AutonScoringActivity extends AppCompatActivity implements ScoringAc
 
     //helper method to set onClickListeners and update points accordingly
     private void setOnClickListeners(CheckBox cb, final String achievementText){
-
 
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
@@ -123,20 +125,31 @@ public class AutonScoringActivity extends AppCompatActivity implements ScoringAc
             }
         });
     }
-
+    // go to teleOp scoring
     public void onTeleOpScoringClick(View view) {
         Intent toTeleOp = new Intent(this, TeleOpScoringActivity.class);
         startActivity(toTeleOp);
     }
-
+    // go to home screen
     public void onHomeScreenClick(View view){
         Intent toHome = new Intent(this, StartMenuActivity.class);
         startActivity(toHome);
     }
 
     public void onResetScoreClick(View view) {
-        points = 0;
+        // get layout of the auton scoring activity
+        LinearLayout layout = findViewById(R.id.auton_widget_scoring_list);
+        int num = layout.getChildCount();
+        for(int i = 0 ; i < num; i++){
+            LinearLayout linear = (LinearLayout) layout.getChildAt(i);
+            RelativeLayout relative = (RelativeLayout) linear.getChildAt(1);
+            CheckBox cb1 = (CheckBox) relative.getChildAt(0);
+            CheckBox cb2 = (CheckBox) relative.getChildAt(1);
+            cb1.setChecked(false);
+            cb2.setChecked(false);
+        }
 
+        points = 0;
         updateScore();
     }
 
