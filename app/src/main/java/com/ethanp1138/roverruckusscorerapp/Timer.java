@@ -1,18 +1,26 @@
 package com.ethanp1138.roverruckusscorerapp;
 
 import android.os.CountDownTimer;
-import android.widget.Toast;
 
 public class Timer {
 
-    private final int maxTime = 30000; // auton time limit is 30 seconds
-    private int time = 30000; // holds current time
-    boolean startFromBeginning = true; // determines whether to begin timer from 30 sec or not
-    AutonScoringActivity activity = null;
+    private int maxTime = 0; // time to start from
+    private int time = 0; // holds current time
+    boolean startFromBeginning = true; // determines whether to begin timer from beginning or not
+    ScoringActivity activity = null;
     CountDownTimer timer = null; // android os timer
-    public Timer(AutonScoringActivity activity){
+
+    // constructor
+    public Timer(ScoringActivity activity){
         this.activity = activity;
-    } // constructor
+        // set max time based on auton vs teleop period
+        if(activity.getClass() == AutonScoringActivity.class){
+            maxTime = 30000;
+        } else {
+            maxTime = 120000;
+        }
+        time = maxTime;
+    }
 
     // starts timer from beginning or from where it left off depending on boolean: startFromBeginning
     public void startTimer(){
